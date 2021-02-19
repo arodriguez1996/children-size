@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+const Componente = ({ children }) => {
+  //Size of children
+  const divTag = useRef();
+  useEffect(()=>{
+    console.log(children.props.style);
+    console.log(divTag.current.getBoundingClientRect());
+  }, [ children ]);
+
+  return <div ref={ divTag } >{ children }</div>
+}
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Componente>
+      <div style={{ width:'200px', height: '200px' }}>
+        <h1>Size Me!</h1>
+      </div>
+    </Componente>    
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
